@@ -103,6 +103,32 @@ const styles = {
 };
 
 export class Settings extends Component {
+	constructor(){
+		super();
+		this.state={
+			browsers:{
+				chrome: false,
+				firefox: false,
+				explorer: false,
+				safari: false,
+				opera: false,
+				incognito: false
+			},
+			devices: {
+				cookies: false,
+				vinn: false,
+				phone: false,
+				mobile: false,
+				fly: false
+
+			}
+		}
+	}
+	handleChange = input => event => {
+        this.setState({
+            [input]: event.target.value
+        });
+    }
 	render() {
 		const { classes } = this.props;
 		return (
