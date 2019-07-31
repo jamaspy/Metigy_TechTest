@@ -116,7 +116,7 @@ export class Settings extends Component {
 
 				{/* BROSWERS */}
 				<Grid container spacing={1}>
-					<Grid item xs={10}>
+					<Grid item xs={9}>
 						<Card className={classes.broswers}>
 							<FormGroup row>
 								<FormControlLabel control={<Switch />} label='Chrome' />
@@ -127,7 +127,7 @@ export class Settings extends Component {
 							</FormGroup>
 						</Card>
 					</Grid>
-					<Grid item xs={2}>
+					<Grid item xs={3}>
 						<Card className={classes.incognito}>
 							<FormGroup row>
 								<FormControlLabel control={<Switch />} label='Incognito' />
