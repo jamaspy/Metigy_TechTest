@@ -37,6 +37,10 @@ const styles = {
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-between"
+	},
+	button:{
+		color: "white",
+		textTransform: "lowercase"
 	}
 };
 
@@ -98,7 +102,7 @@ export class Keywords extends Component {
 					{this.state.keywords.map(word => (
 						<Card className={classes.word} key={Math.random()}>
 							{word}
-							<Button variant='outlined' color='light' onClick={this.addSite}>
+							<Button variant='outlined' className={classes.button} onClick={this.addSite}>
 								Remove
 							</Button>
 						</Card>
