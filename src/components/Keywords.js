@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 //FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag } from "@fortawesome/free-solid-svg-icons";
+import { faTag, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
 import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
@@ -39,7 +39,8 @@ const styles = {
 		justifyContent: "space-between"
 	},
 	button:{
-		color: "white",
+		color: "grey",
+		border: "grey",
 		textTransform: "lowercase"
 	}
 };
@@ -103,7 +104,7 @@ export class Keywords extends Component {
 						<Card className={classes.word} key={Math.random()}>
 							{word}
 							<Button variant='outlined' className={classes.button} onClick={this.addSite}>
-								Remove
+							<p><FontAwesomeIcon color='grey' icon={faMinusCircle}/> clear </p>
 							</Button>
 						</Card>
 					))}
