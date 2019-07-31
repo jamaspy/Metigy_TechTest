@@ -109,14 +109,32 @@ const useStyles = makeStyles(theme => ({
 
 export default function Settings() {
 	const [state, setState] = React.useState({
+		// Browser Settings
 		chrome: true,
 		firefox: false,
 		safari: true,
 		explorer: false,
 		opera: false,
-		incognito: true
+		incognito: true,
+
+		// Device Settings
+		device: true,
+		phone: true,
+		mobileData: false,
+		vinn: false,
+		fly: false,
+
+		// Option Settings
+		cookies: true,
+		analytic: false,
+		dataSaving: true,
+		mouse: true,
+		resolution: false,
+		random: false,
+		history: true
 	});
 
+	//Handle Switches Change
 	const handleChange = name => event => {
 		setState({ ...state, [name]: event.target.checked });
 	};
@@ -216,8 +234,8 @@ export default function Settings() {
 			<Grid container style={{ marginTop: 10 }}>
 				<Card item className={classes.website}>
 					<FormGroup row>
-						<Slider name='Minutes' />
-						<Slider name='Seconds' />
+						<Slider name='From Seconds' />
+						<Slider name='To Seconds' />
 					</FormGroup>
 					<FormControlLabel
 						control={<Switch />}
@@ -249,29 +267,70 @@ export default function Settings() {
 					</FormGroup>
 				</Card>
 			</Grid>
+
 			{/* DEVICES */}
 			<Grid container spacing={1}>
 				<Grid item xs={12}>
 					<Card className={classes.devices}>
 						<FormGroup row>
 							<FormControlLabel
-								control={<Switch color='primary' />}
+								control={
+									<Switch
+										color='primary'
+										checked={state.device}
+										onChange={handleChange("device")}
+										value='device'
+										inputProps={{ "aria-label": "device switch" }}
+									/>
+								}
 								label='Device Reset'
 							/>
 							<FormControlLabel
-								control={<Switch color='primary' />}
+								control={
+									<Switch
+										color='primary'
+										checked={state.vinn}
+										onChange={handleChange("vinn")}
+										value='vinn'
+										inputProps={{ "aria-label": "vinn switch" }}
+									/>
+								}
 								label='Vinn Reset'
 							/>
 							<FormControlLabel
-								control={<Switch color='primary' />}
+								control={
+									<Switch
+										color='primary'
+										checked={state.phone}
+										onChange={handleChange("phone")}
+										value='phone'
+										inputProps={{ "aria-label": "phone switch" }}
+									/>
+								}
 								label='Phone Reset'
 							/>
 							<FormControlLabel
-								control={<Switch color='primary' />}
+								control={
+									<Switch
+										color='primary'
+										checked={state.mobileData}
+										onChange={handleChange("mobileData")}
+										value='mobileData'
+										inputProps={{ "aria-label": "mobileData switch" }}
+									/>
+								}
 								label='Mobile Data'
 							/>
 							<FormControlLabel
-								control={<Switch color='primary' />}
+								control={
+									<Switch
+										color='primary'
+										checked={state.fly}
+										onChange={handleChange("fly")}
+										value='fly'
+										inputProps={{ "aria-label": "fly switch" }}
+									/>
+								}
 								label='Fly Mode'
 							/>
 						</FormGroup>
@@ -283,19 +342,83 @@ export default function Settings() {
 				<Grid item xs={12}>
 					<Card className={classes.options}>
 						<FormGroup row>
-							<FormControlLabel control={<Switch />} label='Remove Cookies' />
 							<FormControlLabel
-								control={<Switch />}
+								control={
+									<Switch
+										checked={state.cookies}
+										onChange={handleChange("cookies")}
+										value='cookies'
+										inputProps={{ "aria-label": "cookies switch" }}
+									/>
+								}
+								label='Remove Cookies'
+							/>
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.resolution}
+										onChange={handleChange("resolution")}
+										value='resolution'
+										inputProps={{ "aria-label": "resolution switch" }}
+									/>
+								}
 								label='Change Resolution'
 							/>
-							<FormControlLabel control={<Switch />} label='Mouse Tracks' />
-							<FormControlLabel control={<Switch />} label='Data Saving' />
-							<FormControlLabel control={<Switch />} label='Random Generate' />
 							<FormControlLabel
-								control={<Switch />}
+								control={
+									<Switch
+										checked={state.mouse}
+										onChange={handleChange("mouse")}
+										value='mouse'
+										inputProps={{ "aria-label": "mouse switch" }}
+									/>
+								}
+								label='Mouse Tracks'
+							/>
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.dataSaving}
+										onChange={handleChange("dataSaving")}
+										value='dataSaving'
+										inputProps={{ "aria-label": "dataSaving switch" }}
+									/>
+								}
+								label='Data Saving'
+							/>
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.random}
+										onChange={handleChange("random")}
+										value='random'
+										inputProps={{ "aria-label": "random switch" }}
+									/>
+								}
+								label='Random Generate'
+							/>
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.analytic}
+										onChange={handleChange("analytic")}
+										value='analytic'
+										inputProps={{ "aria-label": "analytic switch" }}
+									/>
+								}
 								label='Analytic Protection'
 							/>
-							<FormControlLabel control={<Switch />} label='Remove History' />
+							<FormControlLabel
+								control={
+									<Switch
+										checked={state.history}
+										onChange={handleChange("history")}
+										value='history'
+										inputProps={{ "aria-label": "history switch" }}
+									/>
+								}
+								label='Remove History'
+							/>
 						</FormGroup>
 					</Card>
 				</Grid>
