@@ -9,11 +9,13 @@ import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
 
 const styles = {
 	card: {
+		boxSizing: "border-box",
 		textAlign: "center",
 		backgroundColor: "#263044",
 		margin: "0 auto",
 		padding: 20,
-		alignItems: "center"
+		alignItems: "center",
+		width: "100%"
 	},
 	paper: {
 		padding: "2px 4px",
@@ -30,11 +32,15 @@ const styles = {
 		padding: 5,
 		backgroundColor: "#263044",
 		color: "white",
-		width: 286,
+		width: "100%",
 		height: 40,
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-between"
+	},
+	button:{
+		color: "white",
+		textTransform: "lowercase"
 	}
 };
 
@@ -92,7 +98,7 @@ export class Sites extends Component {
 					{this.state.sites.map(site => (
 						<Card className={classes.site} key={Math.random()}>
 							{site}
-							<Button variant='outlined' color='light' onClick={this.addSite}>
+							<Button variant='outlined' className={classes.button} onClick={this.addSite}>
 								Remove
 							</Button>
 						</Card>

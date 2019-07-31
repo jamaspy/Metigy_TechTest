@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 function App() {
 	return (
 		
-		<Grid container spacing={3} className='container'>
+		<Grid container spacing={4} className='container'>
 			<Grid item xs={3}>
 				<Keywords />
 			</Grid>
