@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 //FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTag, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
 import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
@@ -95,7 +95,7 @@ export class Keywords extends Component {
 							color='secondary'
 							onClick={this.addKeyWord}
 						>
-							+
+							<FontAwesomeIcon icon={faPlusCircle}/>
 						</Button>
 					</Paper>
 				</Card>

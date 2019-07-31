@@ -4,7 +4,7 @@ import Slider from "./Slider/slider";
 
 //Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faCogs, faPlayCircle, faPauseCircle, faDownload } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
 import {
@@ -85,8 +85,20 @@ const styles = {
 		width: "100%",
 		color: "white"
     },
-    button:{
-        marginLeft: '30px'
+    exportButton:{
+        marginLeft: '30px',
+        backgroundColor: "#ffc133",
+        color: 'white'
+    },
+    stopButton:{
+        marginLeft: '30px',
+        backgroundColor: "#387de5",
+        color: 'white'
+    },
+    startButton:{
+        marginLeft: '30px',
+        backgroundColor: "#4fbd60",
+        color: 'white'
     }
 };
 
@@ -165,11 +177,11 @@ export class Settings extends Component {
 					<Grid item xs={12}>
 						<Card className={classes.devices}>
 							<FormGroup row>
-								<FormControlLabel control={<Switch />} label='Device Reset' />
-								<FormControlLabel control={<Switch />} label='Vinn Reset' />
-								<FormControlLabel control={<Switch />} label='Phone Reset' />
-								<FormControlLabel control={<Switch />} label='Mobile Data' />
-								<FormControlLabel control={<Switch />} label='Fly Mode' />
+								<FormControlLabel control={<Switch color="primary"/>} label='Device Reset' />
+								<FormControlLabel control={<Switch color="primary"/>} label='Vinn Reset' />
+								<FormControlLabel control={<Switch color="primary"/>} label='Phone Reset' />
+								<FormControlLabel control={<Switch color="primary"/>} label='Mobile Data' />
+								<FormControlLabel control={<Switch color="primary"/>} label='Fly Mode' />
 							</FormGroup>
 						</Card>
 					</Grid>
@@ -204,24 +216,21 @@ export class Settings extends Component {
 						<Card className={classes.buttons}>
 							<Button
 								variant='contained'
-								color='secondary'
-								className={classes.button}
+								className={classes.exportButton}
 							>
-								Export
+								 Export <FontAwesomeIcon icon={faDownload} />
 							</Button>
 							<Button
 								variant='contained'
-								color='secondary'
-								className={classes.button}
+								className={classes.startButton}
 							>
-								Start
+								Start <FontAwesomeIcon icon={faPlayCircle} />
 							</Button>
 							<Button
 								variant='contained'
-								color='secondary'
-								className={classes.button}
+								className={classes.stopButton}
 							>
-								Stop
+								Stop <FontAwesomeIcon icon={faPauseCircle} />
 							</Button>
 						</Card>
 					</Grid>

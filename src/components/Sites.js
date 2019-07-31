@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 //FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTv, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTv, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
 import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
@@ -91,7 +91,7 @@ export class Sites extends Component {
 							inputProps={{ "aria-label": "add sites" }}
 						/>
 						<Button variant='outlined' color='secondary' onClick={this.addSite}>
-							+
+						<FontAwesomeIcon icon={faPlusCircle}/>
 						</Button>
 					</Paper>
 				</Card>
