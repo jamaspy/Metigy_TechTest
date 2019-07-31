@@ -71,6 +71,14 @@ export class Sites extends Component {
 		});
 	};
 
+	clearSite(index) {
+		this.setState(({ sites }) => {
+		  const newSites = [ ...sites ]
+		  newSites.splice(index, 1)
+		  return { sites: newSites }
+		})
+	  }
+
 	render() {
 		const { classes } = this.props;
 		return (
@@ -96,10 +104,10 @@ export class Sites extends Component {
 					</Paper>
 				</Card>
 				<Grid container direction='column' justify='center' alignItems='center'>
-					{this.state.sites.map(site => (
-						<Card className={classes.site} key={Math.random()}>
+					{this.state.sites.map((site, index) => (
+						<Card className={classes.site} key={index}>
 							{site}
-							<Button variant='outlined' className={classes.button} onClick={this.addSite}>
+							<Button variant='outlined' className={classes.button} onClick={ () => this.clearSite(index) }>
 							<p><FontAwesomeIcon color='grey' icon={faMinusCircle}/> clear </p>
 							</Button>
 						</Card>

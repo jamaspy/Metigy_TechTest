@@ -54,6 +54,7 @@ export class Keywords extends Component {
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.addKeyWord = this.addKeyWord.bind(this);
+		this.clearKeyword = this.clearKeyword.bind(this);
 	}
 
 	//Keywords input field
@@ -70,6 +71,14 @@ export class Keywords extends Component {
 			newKeyword: ""
 		});
 	};
+
+	clearKeyword(index) {
+		this.setState(({ keywords }) => {
+		  const newKeywords = [ ...keywords ]
+		  newKeywords.splice(index, 1)
+		  return { keywords: newKeywords }
+		})
+	  }
 
 	render() {
 		const { classes } = this.props;
@@ -100,10 +109,10 @@ export class Keywords extends Component {
 					</Paper>
 				</Card>
 				<Grid container direction='column' justify='center' alignItems='center'>
-					{this.state.keywords.map(word => (
-						<Card className={classes.word} key={Math.random()}>
+					{this.state.keywords.map((word, index) => (
+						<Card className={classes.word} key={index}>
 							{word}
-							<Button variant='outlined' className={classes.button} onClick={this.addSite}>
+							<Button variant='outlined' className={classes.button} onClick={ () => this.clearKeyword(index) } >
 							<p><FontAwesomeIcon color='grey' icon={faMinusCircle}/> clear </p>
 							</Button>
 						</Card>
