@@ -181,8 +181,8 @@ export default function Settings() {
 	const handleChecked = name => event => {
 		setState({ ...state, [name]: event.target.checked });
 	};
-	const handleInput = e =>
-		setState({ ...state, [e.target.name]: e.target.value });
+	const handleInput = event =>
+		setState({ ...state, [event.target.name]: event.target.value });
 	
 	const handleExport = () => {
 		console.log("Export Clicked");
@@ -193,6 +193,8 @@ export default function Settings() {
 	const handleStop = () => {
 		console.log("Stop Clicked");
 	}; 
+
+
 	const classes = useStyles();
 	
 	
@@ -638,13 +640,13 @@ export default function Settings() {
 			<Grid container spacing={1}>
 				<Grid item xs={12}>
 					<Card className={classes.buttons}>
-						<Button variant='contained' className={classes.exportButton} onClick={handleExport}>
+						<Button variant='contained'size="large" className={classes.exportButton} onClick={handleExport}>
 							Export <FontAwesomeIcon icon={faDownload} />
 						</Button>
-						<Button variant='contained' className={classes.startButton} onClick={handleStart}>
+						<Button variant='contained' size="large" className={classes.startButton} onClick={handleStart}>
 							Start <FontAwesomeIcon icon={faPlayCircle} />
 						</Button>
-						<Button variant='contained' className={classes.stopButton} onClick={handleStop}>
+						<Button variant='contained' size="large" className={classes.stopButton} onClick={handleStop}>
 							Stop <FontAwesomeIcon icon={faPauseCircle} />
 						</Button>
 					</Card>
