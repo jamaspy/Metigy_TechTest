@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
+import axios from "axios"
 import { makeStyles } from "@material-ui/core/styles/";
 
 
@@ -120,54 +122,57 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const getData = () => {
-fetch("../settings.json")
-  .then((res) => res.json())
-  .then((data) => {
-    console.log('data:', data);
-  })
-}
 
 export default function Settings() {
+	const [state, setState] = useState({})
+	useEffect(()=>{
+		axios.get('./settings.json')
+		.then(res=>{
+			setState(res.data)
+		    console.log(JSON.stringify(res.data.chrome))
+		}).catch((err)=>{
+		  console.log(err);
+		})
+	}, [])
 	
-	const [state, setState] = React.useState({
-		// Browser Settings
-		chrome: false,
-		firefox: false,
-		safari: true,
-		explorer: false,
-		opera: false,
-		incognito: true,
+	// const [state, setState] = useState({
+	// 	// Browser Settings
+	// 	chrome: false,
+	// 	firefox: false,
+	// 	safari: true,
+	// 	explorer: false,
+	// 	opera: false,
+	// 	incognito: true,
 
-		//Input Settings
-		websiteWait1: 20,
-		websiteWait2: 50,
-		PageInSite: false,
-		numPages: 10,
-		numPagesSec1: 40,
-		numPagesSec2: 20,
-		postOp1: 30,
-		postOp2: 60,
-		targetSite: 20,
-		targetSiteMins: 10,
-		autoReset: 20,
+	// 	//Input Settings
+	// 	websiteWait1: 20,
+	// 	websiteWait2: 50,
+	// 	PageInSite: false,
+	// 	numPages: 10,
+	// 	numPagesSec1: 40,
+	// 	numPagesSec2: 20,
+	// 	postOp1: 30,
+	// 	postOp2: 60,
+	// 	targetSite: 20,
+	// 	targetSiteMins: 10,
+	// 	autoReset: 20,
 
-		// Device Settings
-		device: true,
-		phone: true,
-		mobileData: false,
-		vinn: false,
-		fly: false,
+	// 	// Device Settings
+	// 	device: true,
+	// 	phone: true,
+	// 	mobileData: false,
+	// 	vinn: false,
+	// 	fly: false,
 
-		// Option Settings
-		cookies: true,
-		analytic: false,
-		dataSaving: true,
-		mouse: true,
-		resolution: false,
-		random: false,
-		history: true
-	});
+	// 	// Option Settings
+	// 	cookies: true,
+	// 	analytic: false,
+	// 	dataSaving: true,
+	// 	mouse: true,
+	// 	resolution: false,
+	// 	random: false,
+	// 	history: true
+	// });
 
 	//Handle Changes Functions
 	const handleSwitch = name => event => {
@@ -189,6 +194,8 @@ export default function Settings() {
 		console.log("Stop Clicked");
 	}; 
 	const classes = useStyles();
+	
+	
 	return (
 		<Grid container direction='column' justify='center' alignItems='center'>
 			<div>
@@ -206,7 +213,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.chrome}
+										checked={state.chrome === "false" ? "" : "true"}
 										onChange={handleSwitch("chrome")}
 										value='chrome'
 										inputProps={{ "aria-label": "chrome switch" }}
@@ -217,7 +224,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.firefox}
+										checked={state.firefox === "false" ? "" : "true"}
 										onChange={handleSwitch("firefox")}
 										value='firefox'
 										inputProps={{ "aria-label": "firefox switch" }}
@@ -228,7 +235,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.explorer}
+										checked={state.explorer === "false" ? "" : "true"}
 										onChange={handleSwitch("explorer")}
 										value='explorer'
 										inputProps={{ "aria-label": "explorer switch" }}
@@ -239,7 +246,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.safari}
+										checked={state.safari === "false" ? "" : "true"}
 										onChange={handleSwitch("safari")}
 										value='safari'
 										inputProps={{ "aria-label": "safari switch" }}
@@ -250,7 +257,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.opera}
+										checked={state.opera === "false" ? "" : "true"}
 										onChange={handleSwitch("opera")}
 										value='opera'
 										inputProps={{ "aria-label": "opera switch" }}
@@ -267,7 +274,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.incognito}
+										checked={state.incognito === "false" ? "" : "true"}
 										onChange={handleSwitch("incognito")}
 										value='incognito'
 										inputProps={{ "aria-label": "incognito switch" }}
@@ -482,7 +489,7 @@ export default function Settings() {
 								control={
 									<Switch
 										color='primary'
-										checked={state.device}
+										checked={state.device === "false" ? "" : "true"}
 										onChange={handleSwitch("device")}
 										value='device'
 										inputProps={{ "aria-label": "device switch" }}
@@ -494,7 +501,7 @@ export default function Settings() {
 								control={
 									<Switch
 										color='primary'
-										checked={state.vinn}
+										checked={state.vinn === "false" ? "" : "true"}
 										onChange={handleSwitch("vinn")}
 										value='vinn'
 										inputProps={{ "aria-label": "vinn switch" }}
@@ -506,7 +513,7 @@ export default function Settings() {
 								control={
 									<Switch
 										color='primary'
-										checked={state.phone}
+										checked={state.phone === "false" ? "" : "true"}
 										onChange={handleSwitch("phone")}
 										value='phone'
 										inputProps={{ "aria-label": "phone switch" }}
@@ -518,7 +525,7 @@ export default function Settings() {
 								control={
 									<Switch
 										color='primary'
-										checked={state.mobileData}
+										checked={state.mobileData === "false" ? "" : "true"}
 										onChange={handleSwitch("mobileData")}
 										value='mobileData'
 										inputProps={{ "aria-label": "mobileData switch" }}
@@ -530,7 +537,7 @@ export default function Settings() {
 								control={
 									<Switch
 										color='primary'
-										checked={state.fly}
+										checked={state.fly === "false" ? "" : "true"}
 										onChange={handleSwitch("fly")}
 										value='fly'
 										inputProps={{ "aria-label": "fly switch" }}
@@ -550,7 +557,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.cookies}
+										checked={state.cookies === "false" ? "" : "true"}
 										onChange={handleSwitch("cookies")}
 										value='cookies'
 										inputProps={{ "aria-label": "cookies switch" }}
@@ -561,7 +568,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.resolution}
+										checked={state.resolution === "false" ? "" : "true"}
 										onChange={handleSwitch("resolution")}
 										value='resolution'
 										inputProps={{ "aria-label": "resolution switch" }}
@@ -572,7 +579,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.mouse}
+										checked={state.mouse === "false" ? "" : "true"}
 										onChange={handleSwitch("mouse")}
 										value='mouse'
 										inputProps={{ "aria-label": "mouse switch" }}
@@ -583,7 +590,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.dataSaving}
+										checked={state.dataSaving === "false" ? "" : "true"}
 										onChange={handleSwitch("dataSaving")}
 										value='dataSaving'
 										inputProps={{ "aria-label": "dataSaving switch" }}
@@ -594,7 +601,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.random}
+										checked={state.random === "false" ? "" : "true"}
 										onChange={handleSwitch("random")}
 										value='random'
 										inputProps={{ "aria-label": "random switch" }}
@@ -605,7 +612,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.analytic}
+										checked={state.analytic === "false" ? "" : "true"}
 										onChange={handleSwitch("analytic")}
 										value='analytic'
 										inputProps={{ "aria-label": "analytic switch" }}
@@ -616,7 +623,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.history}
+										checked={state.history === "false" ? "" : "true"}
 										onChange={handleSwitch("history")}
 										value='history'
 										inputProps={{ "aria-label": "history switch" }}
