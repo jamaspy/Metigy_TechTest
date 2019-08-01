@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles/";
-import Slider from "./Slider/slider";
-
+import "typeface-roboto";
 //Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,7 +17,10 @@ import {
 	FormGroup,
 	FormControlLabel,
 	Button,
-	Switch
+	Switch,
+	Typography,
+	Input,
+	Checkbox
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -104,6 +106,15 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: "30px",
 		backgroundColor: "#4fbd60",
 		color: "white"
+	},
+	input: {
+		width: 42,
+		color: "white",
+		marginLeft: 10,
+		fontWeight: "bold"
+	},
+	checkbox: {
+		marginLeft: 30
 	}
 }));
 
@@ -116,6 +127,19 @@ export default function Settings() {
 		explorer: false,
 		opera: false,
 		incognito: true,
+
+		//Input Settings
+		websiteWait1: 20,
+		websiteWait2: 50,
+		PageInSite: false,
+		numPages: 10,
+		numPagesSec1: 40,
+		numPagesSec2: 20,
+		postOp1: 30,
+		postOp2: 60,
+		targetSite: 20,
+		targetSiteMins: 10,
+		autoReset: 20,
 
 		// Device Settings
 		device: true,
@@ -134,10 +158,15 @@ export default function Settings() {
 		history: true
 	});
 
-	//Handle Switches Change
-	const handleChange = name => event => {
+	//Handle Changes Functions
+	const handleSwitch = name => event => {
 		setState({ ...state, [name]: event.target.checked });
 	};
+	const handleChecked = name => event => {
+		setState({ ...state, [name]: event.target.checked });
+	};
+	const handleInput = e =>
+		setState({ ...state, [e.target.name]: e.target.value });
 
 	const classes = useStyles();
 	return (
@@ -158,7 +187,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.chrome}
-										onChange={handleChange("chrome")}
+										onChange={handleSwitch("chrome")}
 										value='chrome'
 										inputProps={{ "aria-label": "chrome switch" }}
 									/>
@@ -169,7 +198,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.firefox}
-										onChange={handleChange("firefox")}
+										onChange={handleSwitch("firefox")}
 										value='firefox'
 										inputProps={{ "aria-label": "firefox switch" }}
 									/>
@@ -180,7 +209,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.explorer}
-										onChange={handleChange("explorer")}
+										onChange={handleSwitch("explorer")}
 										value='explorer'
 										inputProps={{ "aria-label": "explorer switch" }}
 									/>
@@ -191,7 +220,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.safari}
-										onChange={handleChange("safari")}
+										onChange={handleSwitch("safari")}
 										value='safari'
 										inputProps={{ "aria-label": "safari switch" }}
 									/>
@@ -202,7 +231,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.opera}
-										onChange={handleChange("opera")}
+										onChange={handleSwitch("opera")}
 										value='opera'
 										inputProps={{ "aria-label": "opera switch" }}
 									/>
@@ -219,7 +248,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.incognito}
-										onChange={handleChange("incognito")}
+										onChange={handleSwitch("incognito")}
 										value='incognito'
 										inputProps={{ "aria-label": "incognito switch" }}
 									/>
@@ -230,40 +259,198 @@ export default function Settings() {
 					</Card>
 				</Grid>
 			</Grid>
-			{/* SLIDERS */}
+			{/* INPUTS */}
 			<Grid container style={{ marginTop: 10 }}>
 				<Card item className={classes.website}>
+					<Typography variant="h5">Configure Your Search</Typography>
+					<br />
 					<FormGroup row>
-						<Slider name='From Seconds' />
-						<Slider name='To Seconds' />
+						<Typography variant='body1'>
+							Wait
+							<Input
+								className={classes.input}
+								name='websiteWait1'
+								value={state.websiteWait1}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							<Input
+								className={classes.input}
+								name='websiteWait2'
+								value={state.websiteWait2}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							seconds on the target website
+						</Typography>
+
+						
 					</FormGroup>
 					<FormControlLabel
-						control={<Switch />}
-						label='Vist the Page within the Site'
-					/>
-					<br />
+							className={classes.checkbox}
+							control={
+								<Checkbox
+									checked={state.checkedA}
+									onChange={handleChecked("checkedA")}
+									value='checkedA'
+								/>
+							}
+							label='Visit the Page within the Site'
+						/>
 					<br />
 					<FormGroup row>
-						<Slider name='Pages' />
-						<Slider name='Seconds' />
-						<Slider name='Seconds' />
+						<Input
+							className={classes.input}
+							name='numPages'
+							value={state.numPages}
+							margin='dense'
+							onChange={handleInput}
+							inputProps={{
+								step: 1,
+								min: 0,
+								max: 100,
+								type: "number",
+								"aria-labelledby": "input-slider"
+							}}
+						/>
+						<Typography variant='body1'>
+							Pages{" "}
+							<Input
+								className={classes.input}
+								name='numPagesSec1'
+								value={state.numPagesSec1}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							<Input
+								className={classes.input}
+								name='numPagesSec2'
+								value={state.numPagesSec2}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>{" "}
+							visit from to seconds
+						</Typography>
 					</FormGroup>
 					<br />
-					<br />
 					<FormGroup row>
-						<Slider name='Seconds' />
-						<Slider name='Seconds' />
+						<Typography variant='body1'>
+							After the operation is complete{" "}
+							<Input
+								className={classes.input}
+								name='postOp1'
+								value={state.postOp1}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							Pages{" "}
+							<Input
+								className={classes.input}
+								name='postOp2'
+								value={state.postOp2}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							seconds wait.
+						</Typography>
 					</FormGroup>
 					<br />
-					<br />
 					<FormGroup row>
-						<Slider name='Seconds' />
-						<Slider name='Seconds' />
+						<Typography variant='body1'>
+							Target site{" "}
+							<Input
+								className={classes.input}
+								name='targetSite'
+								value={state.targetSite}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>{" "}
+							if not found times{" "}
+							<Input
+								className={classes.input}
+								name='targetSiteMins'
+								value={state.targetSiteMins}
+								margin='dense'
+								onChange={handleInput}
+								inputProps={{
+									step: 1,
+									min: 0,
+									max: 100,
+									type: "number",
+									"aria-labelledby": "input-slider"
+								}}
+							/>
+							minutes wait.
+						</Typography>
 					</FormGroup>
 					<br />
-					<br />
 					<FormGroup row>
-						<Slider name='Auto Reset After Operation' />
+						<Input
+							className={classes.input}
+							name='autoReset'
+							value={state.autoReset}
+							margin='dense'
+							onChange={handleInput}
+							inputProps={{
+								step: 1,
+								min: 0,
+								max: 100,
+								type: "number",
+								"aria-labelledby": "input-slider"
+							}}
+						/>{" "}
+						<Typography vairant='body1'>
+							automatic reset after operation.
+						</Typography>
 					</FormGroup>
 				</Card>
 			</Grid>
@@ -278,7 +465,7 @@ export default function Settings() {
 									<Switch
 										color='primary'
 										checked={state.device}
-										onChange={handleChange("device")}
+										onChange={handleSwitch("device")}
 										value='device'
 										inputProps={{ "aria-label": "device switch" }}
 									/>
@@ -290,7 +477,7 @@ export default function Settings() {
 									<Switch
 										color='primary'
 										checked={state.vinn}
-										onChange={handleChange("vinn")}
+										onChange={handleSwitch("vinn")}
 										value='vinn'
 										inputProps={{ "aria-label": "vinn switch" }}
 									/>
@@ -302,7 +489,7 @@ export default function Settings() {
 									<Switch
 										color='primary'
 										checked={state.phone}
-										onChange={handleChange("phone")}
+										onChange={handleSwitch("phone")}
 										value='phone'
 										inputProps={{ "aria-label": "phone switch" }}
 									/>
@@ -314,7 +501,7 @@ export default function Settings() {
 									<Switch
 										color='primary'
 										checked={state.mobileData}
-										onChange={handleChange("mobileData")}
+										onChange={handleSwitch("mobileData")}
 										value='mobileData'
 										inputProps={{ "aria-label": "mobileData switch" }}
 									/>
@@ -326,7 +513,7 @@ export default function Settings() {
 									<Switch
 										color='primary'
 										checked={state.fly}
-										onChange={handleChange("fly")}
+										onChange={handleSwitch("fly")}
 										value='fly'
 										inputProps={{ "aria-label": "fly switch" }}
 									/>
@@ -346,7 +533,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.cookies}
-										onChange={handleChange("cookies")}
+										onChange={handleSwitch("cookies")}
 										value='cookies'
 										inputProps={{ "aria-label": "cookies switch" }}
 									/>
@@ -357,7 +544,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.resolution}
-										onChange={handleChange("resolution")}
+										onChange={handleSwitch("resolution")}
 										value='resolution'
 										inputProps={{ "aria-label": "resolution switch" }}
 									/>
@@ -368,7 +555,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.mouse}
-										onChange={handleChange("mouse")}
+										onChange={handleSwitch("mouse")}
 										value='mouse'
 										inputProps={{ "aria-label": "mouse switch" }}
 									/>
@@ -379,7 +566,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.dataSaving}
-										onChange={handleChange("dataSaving")}
+										onChange={handleSwitch("dataSaving")}
 										value='dataSaving'
 										inputProps={{ "aria-label": "dataSaving switch" }}
 									/>
@@ -390,7 +577,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.random}
-										onChange={handleChange("random")}
+										onChange={handleSwitch("random")}
 										value='random'
 										inputProps={{ "aria-label": "random switch" }}
 									/>
@@ -401,7 +588,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.analytic}
-										onChange={handleChange("analytic")}
+										onChange={handleSwitch("analytic")}
 										value='analytic'
 										inputProps={{ "aria-label": "analytic switch" }}
 									/>
@@ -412,7 +599,7 @@ export default function Settings() {
 								control={
 									<Switch
 										checked={state.history}
-										onChange={handleChange("history")}
+										onChange={handleSwitch("history")}
 										value='history'
 										inputProps={{ "aria-label": "history switch" }}
 									/>
