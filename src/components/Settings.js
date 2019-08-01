@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles/";
 
+
 //Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -118,14 +119,17 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+
 const getData = () => {
-	fetch("../setting.JSON")
-		.then(res => res.json())
-		.then(data => console.log(data))
-		.catch(err => console.log(err));
-};
+fetch("../settings.json")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log('data:', data);
+  })
+}
 
 export default function Settings() {
+	
 	const [state, setState] = React.useState({
 		// Browser Settings
 		chrome: false,
