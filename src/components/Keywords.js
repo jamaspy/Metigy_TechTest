@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
+
 //FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTag, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+	faTag,
+	faMinusCircle,
+	faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
-import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
+import {
+	Button,
+	Card,
+	Grid,
+	InputBase,
+	Paper,
+	Typography
+} from "@material-ui/core";
 
 const styles = {
 	card: {
@@ -38,7 +50,7 @@ const styles = {
 		alignItems: "center",
 		justifyContent: "space-between"
 	},
-	button:{
+	button: {
 		color: "grey",
 		border: "grey",
 		textTransform: "lowercase"
@@ -65,29 +77,32 @@ export class Keywords extends Component {
 	};
 
 	addKeyWord = () => {
-		console.log(`New Word: ${this.state.newKeyword}`);
-		this.setState({
-			keywords: [...this.state.keywords, this.state.newKeyword],
-			newKeyword: ""
-		});
+		if (this.state.newKeyword === "") {
+			alert("Please Enter A New Keyword");
+		} else {
+			this.setState({
+				keywords: [...this.state.keywords, this.state.newKeyword],
+				newKeyword: ""
+			});
+		}
 	};
 
 	clearKeyword(index) {
 		this.setState(({ keywords }) => {
-		  const newKeywords = [ ...keywords ]
-		  newKeywords.splice(index, 1)
-		  return { keywords: newKeywords }
-		})
-	  }
+			const newKeywords = [...keywords];
+			newKeywords.splice(index, 1);
+			return { keywords: newKeywords };
+		});
+	}
 
 	render() {
 		const { classes } = this.props;
 		return (
 			<Grid container direction='column' justify='center' alignItems='center'>
 				<div>
-					<h2>
+					<Typography variant='h5'>
 						<FontAwesomeIcon color='#387de5' icon={faTag} /> KeyWords
-					</h2>
+					</Typography>
 				</div>
 				<br />
 				<Card className={classes.card}>
@@ -104,7 +119,7 @@ export class Keywords extends Component {
 							color='secondary'
 							onClick={this.addKeyWord}
 						>
-							<FontAwesomeIcon icon={faPlusCircle}/>
+							<FontAwesomeIcon icon={faPlusCircle} />
 						</Button>
 					</Paper>
 				</Card>
@@ -112,8 +127,14 @@ export class Keywords extends Component {
 					{this.state.keywords.map((word, index) => (
 						<Card className={classes.word} key={index}>
 							{word}
-							<Button variant='outlined' className={classes.button} onClick={ () => this.clearKeyword(index) } >
-							<p><FontAwesomeIcon color='grey' icon={faMinusCircle}/> clear </p>
+							<Button
+								variant='outlined'
+								className={classes.button}
+								onClick={() => this.clearKeyword(index)}
+							>
+								<p>
+									<FontAwesomeIcon color='grey' icon={faMinusCircle} /> clear{" "}
+								</p>
 							</Button>
 						</Card>
 					))}

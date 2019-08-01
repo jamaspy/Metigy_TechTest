@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles/";
-
 
 //Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,15 +13,15 @@ import {
 
 //MUI Imports
 import {
-	Grid,
-	Card,
-	FormGroup,
-	FormControlLabel,
 	Button,
-	Switch,
-	Typography,
+	Card,
+	Checkbox,
+	FormControlLabel,
+	FormGroup,
+	Grid,
 	Input,
-	Checkbox
+	Switch,
+	Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -121,89 +119,48 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-
-
 export default function Settings() {
-	const [state, setState] = useState({})
-	useEffect(()=>{
-		axios.get('./settings.json')
-		.then(res=>{
-			setState(res.data)
-		    console.log(JSON.stringify(res.data.chrome))
-		}).catch((err)=>{
-		  console.log(err);
-		})
-	}, [])
-	
-	// const [state, setState] = useState({
-	// 	// Browser Settings
-	// 	chrome: false,
-	// 	firefox: false,
-	// 	safari: true,
-	// 	explorer: false,
-	// 	opera: false,
-	// 	incognito: true,
 
-	// 	//Input Settings
-	// 	websiteWait1: 20,
-	// 	websiteWait2: 50,
-	// 	PageInSite: false,
-	// 	numPages: 10,
-	// 	numPagesSec1: 40,
-	// 	numPagesSec2: 20,
-	// 	postOp1: 30,
-	// 	postOp2: 60,
-	// 	targetSite: 20,
-	// 	targetSiteMins: 10,
-	// 	autoReset: 20,
-
-	// 	// Device Settings
-	// 	device: true,
-	// 	phone: true,
-	// 	mobileData: false,
-	// 	vinn: false,
-	// 	fly: false,
-
-	// 	// Option Settings
-	// 	cookies: true,
-	// 	analytic: false,
-	// 	dataSaving: true,
-	// 	mouse: true,
-	// 	resolution: false,
-	// 	random: false,
-	// 	history: true
-	// });
+	//Getting Settings from settings.JSON & setr initial State
+	const [state, setState] = useState({});
+	useEffect(() => {
+		axios
+			.get("./settings.json")
+			.then(res => {
+				setState(res.data);
+				console.log(JSON.stringify(res.data.chrome));
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}, []);
 
 	//Handle Changes Functions
 	const handleSwitch = name => event => {
 		setState({ ...state, [name]: event.target.checked });
 	};
-	const handleChecked = name => event => {
-		setState({ ...state, [name]: event.target.checked });
-	};
+
 	const handleInput = event =>
 		setState({ ...state, [event.target.name]: event.target.value });
-	
-	const handleExport = () => {
-		console.log("Export Clicked");
-	}; 
-	const handleStart = () => {
-		console.log("Start Clicked");
-	}; 
-	const handleStop = () => {
-		console.log("Stop Clicked");
-	}; 
 
+	const handleExport = () => {
+		alert("Export Clicked");
+	};
+	const handleStart = () => {
+		alert("Start Clicked");
+	};
+	const handleStop = () => {
+		alert("Stop Clicked");
+	};
 
 	const classes = useStyles();
-	
-	
+
 	return (
 		<Grid container direction='column' justify='center' alignItems='center'>
 			<div>
-				<h2>
+				<Typography variant='h5'>
 					<FontAwesomeIcon color='#ffc133' icon={faCogs} /> Settings
-				</h2>
+				</Typography>
 			</div>
 			<br />
 
@@ -215,7 +172,7 @@ export default function Settings() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.chrome === "false" ? "" : "true"}
+										checked={state.chrome === "false" ? false : true}
 										onChange={handleSwitch("chrome")}
 										value='chrome'
 										inputProps={{ "aria-label": "chrome switch" }}
@@ -332,7 +289,7 @@ export default function Settings() {
 						control={
 							<Checkbox
 								checked={state.checkedA}
-								onChange={handleChecked("checkedA")}
+								onChange={handleSwitch("checkedA")}
 								value='checkedA'
 							/>
 						}
@@ -637,16 +594,32 @@ export default function Settings() {
 					</Card>
 				</Grid>
 			</Grid>
+			{/* ACTION BUTTONS */}
 			<Grid container spacing={1}>
 				<Grid item xs={12}>
 					<Card className={classes.buttons}>
-						<Button variant='contained'size="large" className={classes.exportButton} onClick={handleExport}>
+						<Button
+							variant='contained'
+							size='large'
+							className={classes.exportButton}
+							onClick={handleExport}
+						>
 							Export <FontAwesomeIcon icon={faDownload} />
 						</Button>
-						<Button variant='contained' size="large" className={classes.startButton} onClick={handleStart}>
+						<Button
+							variant='contained'
+							size='large'
+							className={classes.startButton}
+							onClick={handleStart}
+						>
 							Start <FontAwesomeIcon icon={faPlayCircle} />
 						</Button>
-						<Button variant='contained' size="large" className={classes.stopButton} onClick={handleStop}>
+						<Button
+							variant='contained'
+							size='large'
+							className={classes.stopButton}
+							onClick={handleStop}
+						>
 							Stop <FontAwesomeIcon icon={faPauseCircle} />
 						</Button>
 					</Card>

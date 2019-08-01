@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
+
 //FontAwesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTv, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+	faTv,
+	faMinusCircle,
+	faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 //MUI Imports
-import { Grid, InputBase, Button, Paper, Card } from "@material-ui/core";
+import {
+	Button,
+	Card,
+	Grid,
+	InputBase,
+	Paper,
+	Typography
+} from "@material-ui/core";
 
 const styles = {
 	card: {
@@ -38,7 +50,7 @@ const styles = {
 		alignItems: "center",
 		justifyContent: "space-between"
 	},
-	button:{
+	button: {
 		color: "grey",
 		border: "grey",
 		textTransform: "lowercase"
@@ -56,7 +68,7 @@ export class Sites extends Component {
 		this.addSite = this.addSite.bind(this);
 	}
 
-	//sites input field
+	//Handle add-site input field
 	handleChange = input => event => {
 		this.setState({
 			[input]: event.target.value
@@ -64,29 +76,32 @@ export class Sites extends Component {
 	};
 
 	addSite = () => {
-		console.log(`New Site: ${this.state.newSite}`);
-		this.setState({
-			sites: [...this.state.sites, this.state.newSite],
-			newSite: ""
-		});
+		if (this.state.newSite === "") {
+			alert("Please Enter A Web Address");
+		} else {
+			this.setState({
+				sites: [...this.state.sites, this.state.newSite],
+				newSite: ""
+			});
+		}
 	};
 
 	clearSite(index) {
 		this.setState(({ sites }) => {
-		  const newSites = [ ...sites ]
-		  newSites.splice(index, 1)
-		  return { sites: newSites }
-		})
-	  }
+			const newSites = [...sites];
+			newSites.splice(index, 1);
+			return { sites: newSites };
+		});
+	}
 
 	render() {
 		const { classes } = this.props;
 		return (
 			<Grid container direction='column' justify='center' alignItems='center'>
 				<div>
-					<h2>
+					<Typography variant='h5'>
 						<FontAwesomeIcon color='#4fbd60' icon={faTv} /> Sites
-					</h2>
+					</Typography>
 				</div>
 				<br />
 				<Card className={classes.card}>
@@ -99,7 +114,7 @@ export class Sites extends Component {
 							inputProps={{ "aria-label": "add sites" }}
 						/>
 						<Button variant='outlined' color='secondary' onClick={this.addSite}>
-						<FontAwesomeIcon icon={faPlusCircle}/>
+							<FontAwesomeIcon icon={faPlusCircle} />
 						</Button>
 					</Paper>
 				</Card>
@@ -107,8 +122,14 @@ export class Sites extends Component {
 					{this.state.sites.map((site, index) => (
 						<Card className={classes.site} key={index}>
 							{site}
-							<Button variant='outlined' className={classes.button} onClick={ () => this.clearSite(index) }>
-							<p><FontAwesomeIcon color='grey' icon={faMinusCircle}/> clear </p>
+							<Button
+								variant='outlined'
+								className={classes.button}
+								onClick={() => this.clearSite(index)}
+							>
+								<p>
+									<FontAwesomeIcon color='grey' icon={faMinusCircle} /> clear{" "}
+								</p>
 							</Button>
 						</Card>
 					))}
