@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles/";
-import "typeface-roboto";
+
 //Font Awesome Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -118,10 +118,17 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+const getData = () => {
+	fetch("../setting.JSON")
+		.then(res => res.json())
+		.then(data => console.log(data))
+		.catch(err => console.log(err));
+};
+
 export default function Settings() {
 	const [state, setState] = React.useState({
 		// Browser Settings
-		chrome: true,
+		chrome: false,
 		firefox: false,
 		safari: true,
 		explorer: false,
@@ -167,7 +174,16 @@ export default function Settings() {
 	};
 	const handleInput = e =>
 		setState({ ...state, [e.target.name]: e.target.value });
-
+	
+	const handleExport = () => {
+		console.log("Export Clicked");
+	}; 
+	const handleStart = () => {
+		console.log("Start Clicked");
+	}; 
+	const handleStop = () => {
+		console.log("Stop Clicked");
+	}; 
 	const classes = useStyles();
 	return (
 		<Grid container direction='column' justify='center' alignItems='center'>
@@ -262,7 +278,7 @@ export default function Settings() {
 			{/* INPUTS */}
 			<Grid container style={{ marginTop: 10 }}>
 				<Card item className={classes.website}>
-					<Typography variant="h5">Configure Your Search</Typography>
+					<Typography variant='h5'>Configure Your Search</Typography>
 					<br />
 					<FormGroup row>
 						<Typography variant='body1'>
@@ -297,20 +313,18 @@ export default function Settings() {
 							/>
 							seconds on the target website
 						</Typography>
-
-						
 					</FormGroup>
 					<FormControlLabel
-							className={classes.checkbox}
-							control={
-								<Checkbox
-									checked={state.checkedA}
-									onChange={handleChecked("checkedA")}
-									value='checkedA'
-								/>
-							}
-							label='Visit the Page within the Site'
-						/>
+						className={classes.checkbox}
+						control={
+							<Checkbox
+								checked={state.checkedA}
+								onChange={handleChecked("checkedA")}
+								value='checkedA'
+							/>
+						}
+						label='Visit the Page within the Site'
+					/>
 					<br />
 					<FormGroup row>
 						<Input
@@ -613,13 +627,13 @@ export default function Settings() {
 			<Grid container spacing={1}>
 				<Grid item xs={12}>
 					<Card className={classes.buttons}>
-						<Button variant='contained' className={classes.exportButton}>
+						<Button variant='contained' className={classes.exportButton} onClick={handleExport}>
 							Export <FontAwesomeIcon icon={faDownload} />
 						</Button>
-						<Button variant='contained' className={classes.startButton}>
+						<Button variant='contained' className={classes.startButton} onClick={handleStart}>
 							Start <FontAwesomeIcon icon={faPlayCircle} />
 						</Button>
-						<Button variant='contained' className={classes.stopButton}>
+						<Button variant='contained' className={classes.stopButton} onClick={handleStop}>
 							Stop <FontAwesomeIcon icon={faPauseCircle} />
 						</Button>
 					</Card>
